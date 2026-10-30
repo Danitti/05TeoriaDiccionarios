@@ -206,7 +206,19 @@ private:
         //        - meterlo al principio de nuevas[j],
         //        - sumar 1 a recolocados_ (para la medida del main).
         //   3. cubetas_.swap(nuevas).
-        (void)nuevoM;
+        std::vector<Nodo*> nuevas(nuevoM, nullptr);
+        for (Nodo* p: cubetas_) {
+            while (p != nullptr) {
+                Nodo* sig = p->siguiente;
+                int j = hashPolinomico(p->clave) % nuevoM;
+                p->siguiente = nuevas[j];
+                nuevas[j] = p;
+                p = sig;
+                recolocados_++;
+            }
+            
+        }
+        cubetas_.swap(nuevas);
     }
 };
 

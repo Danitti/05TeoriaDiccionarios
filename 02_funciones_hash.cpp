@@ -84,8 +84,11 @@ unsigned long long hashPolinomico(const std::string& s) {
     // Pista: igual que hashSuma(), pero multiplicando lo acumulado por B
     // ANTES de sumar cada caracter. Usa static_cast<unsigned char>(c) para
     // que los caracteres con acento (negativos en char) no resten.
-    (void)s;
-    return 0;
+    unsigned long long h = 0;
+    for (char caracter: s) {
+        h = h*31 + static_cast<unsigned char>(caracter);
+    }
+    return h;
 }
 
 // =========================================================================
